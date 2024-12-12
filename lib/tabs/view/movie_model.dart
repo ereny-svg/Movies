@@ -4,7 +4,7 @@ class MovieModel {
   String overview;
   String backImageName;
   String posterImageName;
-  String date;
+  DateTime date;
   String vote;
   MovieModel({
     required this.id,

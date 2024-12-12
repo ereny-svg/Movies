@@ -75,14 +75,16 @@ class TopRatedMovieItem extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'Deadpool 2',
+                      movie.title,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
                           .copyWith(fontSize: 10),
                     ),
                     Text(
-                      movie.date,
+                      DateTime.now().toString(),
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!

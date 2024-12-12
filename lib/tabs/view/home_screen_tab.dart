@@ -21,7 +21,7 @@ class HomeScreenTab extends StatelessWidget {
           backImageName: 'backimage',
           posterImageName: 'posterimage',
           vote: '7.7',
-          date: '2019  PG-13  2h 7m'),
+          date: DateTime.now()),
     );
 
     return Column(
@@ -37,7 +37,7 @@ class HomeScreenTab extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 27, vertical: 13),
+          padding:const EdgeInsets.only(left: 27, top: 13, bottom: 13),
           width: 455.62,
           height: 187,
           color: AppTheme.dark2Gray,

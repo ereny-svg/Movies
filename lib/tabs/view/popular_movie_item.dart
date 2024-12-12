@@ -43,7 +43,7 @@ class PopularMovieItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
-                      movie.date,
+                      DateTime.now().toString(),
                       style: Theme.of(context).textTheme.titleSmall,
                     )
                   ],

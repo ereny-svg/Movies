@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/shared/app_theme.dart';
-import 'package:movies/tabs/view/movie_model.dart';
-import 'package:movies/tabs/view/triangle_clipper.dart';
+import 'package:movies/movies/view/movie_model.dart';
+import 'package:movies/shared/triangle_clipper.dart';
 
 class UpcomingMovieItem extends StatelessWidget {
-   UpcomingMovieItem({super.key,required this.movie});
-MovieModel movie;
+  const UpcomingMovieItem({super.key, required this.movie});
+  final MovieModel movie;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,19 +17,19 @@ MovieModel movie;
               borderRadius: BorderRadius.circular(4),
               child: Image.asset(
                 'assets/images/${movie.posterImageName}.png',
-                width: 96,
-                height: 127,
+                width: 96.87.w,
+                height: 127.74.h,
                 fit: BoxFit.fill,
               ),
             ),
             ClipPath(
               clipper: TriangleClipper(),
               child: Container(
-                width: 27,
-                height: 36,
+                width: 27.w,
+                height: 36.h,
                 decoration: BoxDecoration(
                     color: AppTheme.neutralGray.withOpacity(0.87),
-                    borderRadius:const BorderRadiusDirectional.only(
+                    borderRadius: const BorderRadiusDirectional.only(
                         topStart: Radius.circular(4),
                         topEnd: Radius.circular(4))),
                 child: const Icon(
@@ -40,8 +41,8 @@ MovieModel movie;
             )
           ],
         ),
-        SizedBox(
-          width: 13,
+         SizedBox(
+          width: 13.w,
         )
       ],
     );

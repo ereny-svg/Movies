@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/tabs/view/browse_screen_tab.dart';
-import 'package:movies/tabs/view/home_screen_tab.dart';
-import 'package:movies/tabs/view/search_screen_tab.dart';
-import 'package:movies/tabs/view/watch_list_screen_tab.dart';
+import 'package:movies/movies/tabs/browse_screen_tab.dart';
+import 'package:movies/movies/tabs/home_screen_tab.dart';
+import 'package:movies/movies/tabs/search_screen_tab.dart';
+import 'package:movies/movies/tabs/watch_list_screen_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home_screen';

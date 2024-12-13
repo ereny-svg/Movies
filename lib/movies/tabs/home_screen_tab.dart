@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/shared/app_theme.dart';
-import 'package:movies/tabs/view/movie_model.dart';
-import 'package:movies/tabs/view/popular_movie_item.dart';
-import 'package:movies/tabs/view/top_rated_movie_item.dart';
-import 'package:movies/tabs/view/upcoming_movie_item.dart';
+import 'package:movies/movies/view/movie_model.dart';
+import 'package:movies/movies/view/popular_movie_item.dart';
+import 'package:movies/movies/view/top_rated_movie_item.dart';
+import 'package:movies/movies/view/upcoming_movie_item.dart';
 
 class HomeScreenTab extends StatelessWidget {
   static const String routeName = '/home_tab';
@@ -37,9 +38,9 @@ class HomeScreenTab extends StatelessWidget {
           ),
         ),
         Container(
-          padding:const EdgeInsets.only(left: 27, top: 13, bottom: 13),
-          width: 455.62,
-          height: 187,
+          padding: EdgeInsets.only(left: 27.w, top: 13.h, bottom: 13.h),
+          width: 455.62.w,
+          height: 187.h,
           color: AppTheme.dark2Gray,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +52,8 @@ class HomeScreenTab extends StatelessWidget {
                     .titleMedium!
                     .copyWith(fontSize: 15),
               ),
-              const SizedBox(
-                height: 12,
+               SizedBox(
+                height: 12.h,
               ),
               Expanded(
                 child: ListView.builder(
@@ -66,17 +67,17 @@ class HomeScreenTab extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 30,
+         SizedBox(
+          height: 30.h,
         ),
         Container(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: 24,
-            bottom: 17,
+          padding:  EdgeInsets.only(
+            top: 10.h,
+            left: 24.w,
+            bottom: 17.h,
           ),
-          width: 565,
-          height: 246,
+          width: 565.w,
+          height: 246.h,
           color: AppTheme.dark2Gray,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,10 +87,10 @@ class HomeScreenTab extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!
-                    .copyWith(fontSize: 15),
+                    .copyWith(fontSize: 15.sp),
               ),
-              const SizedBox(
-                height: 14,
+               SizedBox(
+                height: 14.h,
               ),
               Expanded(
                 child: ListView.builder(
@@ -103,8 +104,8 @@ class HomeScreenTab extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 30,
+         SizedBox(
+          height: 30.h,
         ),
       ],
     );

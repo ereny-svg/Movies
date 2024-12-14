@@ -9,7 +9,7 @@ class AppTheme {
   static const Color lightYellow = Color(0xFFF7B539);
   static const Color white = Color(0xFFFFFFFF);
   static const Color neutralGray = Color(0xFF514F4F);
-    static const Color dark2Gray = Color(0xFF343534);
+  static const Color dark2Gray = Color(0xFF343534);
 
   static ThemeData darkTheme = ThemeData(
       primaryColor: primary,
@@ -18,7 +18,10 @@ class AppTheme {
           titleMedium: TextStyle(
               fontSize: 14, fontWeight: FontWeight.w400, color: white),
           titleSmall: TextStyle(
-              fontSize: 10, fontWeight: FontWeight.w400, color: gray)),
+              fontSize: 10, fontWeight: FontWeight.w400, color: gray),
+   
+              ),
+            
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,

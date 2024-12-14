@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/movies/movie_details.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:movies/movies/view/movie_model.dart';
 import 'package:movies/movies/view/popular_movie_item.dart';
@@ -12,7 +13,7 @@ class HomeScreenTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movies = List.generate(
+    final movies_new_releases = List.generate(
       6,
       (index) => MovieModel(
           id: '${index + 1}',
@@ -24,6 +25,18 @@ class HomeScreenTab extends StatelessWidget {
           vote: '7.7',
           date: DateTime.now()),
     );
+    final movies_recommended = List.generate(
+      6,
+      (index) => MovieModel(
+          id: '${index + 1}',
+          title: 'DeadPool',
+          overview:
+              'oul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with abilities from the brutal, time-traveling cyborg Cable',
+          backImageName: 'Deadpool_2',
+          posterImageName: 'Deadpool_2',
+          vote: '7.7',
+          date: DateTime.now()),
+    );
 
     return Column(
       children: [
@@ -31,8 +44,18 @@ class HomeScreenTab extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: const PageScrollPhysics(),
-            itemBuilder: (context, index) => PopularMovieItem(
-              movie: movies[index],
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  MovieDetails.routeName,
+                  arguments: MovieDetailsArguments(
+                      selectedMovie: movies_new_releases[index],
+                      moviesRecommended: movies_recommended),
+                );
+              },
+              child: PopularMovieItem(
+                movie: movies_new_releases[index],
+              ),
             ),
             itemCount: 6,
           ),
@@ -52,14 +75,24 @@ class HomeScreenTab extends StatelessWidget {
                     .titleMedium!
                     .copyWith(fontSize: 15),
               ),
-               SizedBox(
+              SizedBox(
                 height: 12.h,
               ),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => UpcomingMovieItem(
-                    movie: movies[index],
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        MovieDetails.routeName,
+                        arguments: MovieDetailsArguments(
+                            selectedMovie: movies_new_releases[index],
+                            moviesRecommended: movies_recommended),
+                      );
+                    },
+                    child: UpcomingMovieItem(
+                      movie: movies_new_releases[index],
+                    ),
                   ),
                   itemCount: 6,
                 ),
@@ -67,11 +100,11 @@ class HomeScreenTab extends StatelessWidget {
             ],
           ),
         ),
-         SizedBox(
+        SizedBox(
           height: 30.h,
         ),
         Container(
-          padding:  EdgeInsets.only(
+          padding: EdgeInsets.only(
             top: 10.h,
             left: 24.w,
             bottom: 17.h,
@@ -89,14 +122,24 @@ class HomeScreenTab extends StatelessWidget {
                     .titleMedium!
                     .copyWith(fontSize: 15.sp),
               ),
-               SizedBox(
+              SizedBox(
                 height: 14.h,
               ),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => TopRatedMovieItem(
-                    movie: movies[index],
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        MovieDetails.routeName,
+                        arguments: MovieDetailsArguments(
+                            selectedMovie: movies_recommended[index],
+                            moviesRecommended: movies_recommended),
+                      );
+                    },
+                    child: TopRatedMovieItem(
+                      movie: movies_recommended[index],
+                    ),
                   ),
                   itemCount: 6,
                 ),
@@ -104,10 +147,20 @@ class HomeScreenTab extends StatelessWidget {
             ],
           ),
         ),
-         SizedBox(
+        SizedBox(
           height: 30.h,
         ),
       ],
     );
   }
+}
+
+class MovieDetailsArguments {
+  final MovieModel selectedMovie;
+  final List<MovieModel> moviesRecommended;
+
+  MovieDetailsArguments({
+    required this.selectedMovie,
+    required this.moviesRecommended,
+  });
 }

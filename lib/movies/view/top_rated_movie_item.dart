@@ -15,7 +15,6 @@ class TopRatedMovieItem extends StatelessWidget {
           width: 97.w,
           height: 186.h,
           decoration: BoxDecoration(
-            color: AppTheme.neutralGray,
             borderRadius: BorderRadius.circular(4),
           ),
           child: Column(
@@ -51,47 +50,52 @@ class TopRatedMovieItem extends StatelessWidget {
                   )
                 ],
               ),
+              SizedBox(height: 4.h,),
               Container(
-                margin: EdgeInsets.all(6.r),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                         Icon(
-                          Icons.star,
-                          size: 15.sp,
-                          color: AppTheme.darkYellow,
-                        ),
-                         SizedBox(
-                          width: 4.w,
-                        ),
-                        Text(
-                          movie.vote,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontSize: 10.sp),
-                        )
-                      ],
-                    ),
-                    Text(
-                      movie.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontSize: 10.sp),
-                    ),
-                    Text(
-                      DateTime.now().toString(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(fontSize: 8.sp),
-                    )
-                  ],
+                margin: EdgeInsets.symmetric(horizontal: 6.w),
+                height: 50.h,
+                width: 97.w,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                           Icon(
+                            Icons.star,
+                            size: 15.sp,
+                            color: AppTheme.darkYellow,
+                          ),
+                           SizedBox(
+                            width: 4.w,
+                          ),
+                          Text(
+                            movie.vote,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontSize: 10.sp),
+                          )
+                        ],
+                      ),
+                      Text(
+                        movie.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 10.sp),
+                      ),
+                      Text(
+                        DateTime.now().toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(fontSize: 8.sp),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

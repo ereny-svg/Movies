@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_details.dart';
@@ -7,42 +9,68 @@ import 'package:movies/movies/view/popular_movie_item.dart';
 import 'package:movies/movies/view/top_rated_movie_item.dart';
 import 'package:movies/movies/view/upcoming_movie_item.dart';
 
-class HomeScreenTab extends StatelessWidget {
+class HomeScreenTab extends StatefulWidget {
   static const String routeName = '/home_tab';
   const HomeScreenTab({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final movies_new_releases = List.generate(
-      6,
-      (index) => MovieModel(
-          id: '${index + 1}',
-          title: 'Dora and the lost city of gold',
-          overview:
-              'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
-          backImageName: 'backimage',
-          posterImageName: 'posterimage',
-          vote: '7.7',
-          date: DateTime.now()),
-    );
-    final movies_recommended = List.generate(
-      6,
-      (index) => MovieModel(
-          id: '${index + 1}',
-          title: 'DeadPool',
-          overview:
-              'oul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with abilities from the brutal, time-traveling cyborg Cable',
-          backImageName: 'Deadpool_2',
-          posterImageName: 'Deadpool_2',
-          vote: '7.7',
-          date: DateTime.now()),
-    );
+  State<HomeScreenTab> createState() => _HomeScreenTabState();
+}
 
+class _HomeScreenTabState extends State<HomeScreenTab> {
+  final PageController pageController = PageController(initialPage: 0);
+  int currentPageIndex = 0;
+  late Timer timer;
+  final movies_new_releases = List.generate(
+    6,
+    (index) => MovieModel(
+        id: '${index + 1}',
+        title: 'Dora and the lost city of gold',
+        overview:
+            'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
+        backImageName: 'backimage',
+        posterImageName: 'posterimage',
+        vote: '7.7',
+        date: DateTime.now()),
+  );
+  final movies_recommended = List.generate(
+    6,
+    (index) => MovieModel(
+        id: '${index + 1}',
+        title: 'DeadPool',
+        overview:
+            'oul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with abilities from the brutal, time-traveling cyborg Cable',
+        backImageName: 'Deadpool_2',
+        posterImageName: 'Deadpool_2',
+        vote: '7.7',
+        date: DateTime.now()),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (currentPageIndex < movies_new_releases.length - 1) {
+        currentPageIndex++;
+      } else {
+        currentPageIndex = 0;
+      }
+      pageController.animateToPage(
+        currentPageIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
+          child: PageView.builder(
+            controller: pageController,
             physics: const PageScrollPhysics(),
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
@@ -58,10 +86,13 @@ class HomeScreenTab extends StatelessWidget {
               ),
             ),
             itemCount: 6,
+            onPageChanged: (index) {
+              currentPageIndex = index;
+            },
           ),
         ),
         Container(
-          padding: EdgeInsets.only(left: 27.w, top: 13.h, bottom: 13.h),
+          padding: EdgeInsets.only(left: 24.w, top: 10.h, bottom: 10.h),
           width: 455.62.w,
           height: 187.h,
           color: AppTheme.dark2Gray,

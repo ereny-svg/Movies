@@ -35,7 +35,7 @@ class BrowseScreenTab extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 38.w,
-                    mainAxisSpacing: 40.h,
+                    mainAxisSpacing: 47.h,
                     childAspectRatio: 2),
                 itemBuilder: (_, index) => CategoryItem(
                   index: index,

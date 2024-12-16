@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_type.dart';
@@ -96,7 +94,7 @@ class MovieDetails extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 199.h,
-                  width: 372.w,      
+                  width: 372.w,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -173,10 +171,10 @@ class MovieDetails extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10.w ,top: 10.h),
+                            padding: EdgeInsets.only(left: 10.w, top: 10.h),
                             child: SizedBox(
                               height: 27.h,
-                              width: 51.w,
+                              // width: 51.w,
                               child: Row(
                                 children: [
                                   Icon(
@@ -206,51 +204,53 @@ class MovieDetails extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
           Container(
-          padding: EdgeInsets.only(
-            top: 10.h,
-            left: 24.w,
-            bottom: 17.h,
-          ),
-          width: 565.w,
-          height: 246.h,
-          color: AppTheme.dark2Gray,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'More Like this',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontSize: 15.sp),
-              ),
-              SizedBox(
-                height: 7.h,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(
-                        MovieDetails.routeName,
-                        arguments: MovieDetailsArguments(
-                            selectedMovie: moviesRecommended[index],
-                            moviesRecommended: moviesRecommended),
-                      );
-                    },
-                    child: TopRatedMovieItem(
-                      movie: moviesRecommended[index],
-                    ),
-                  ),
-                  itemCount: 6,
+            padding: EdgeInsets.only(
+              top: 10.h,
+              left: 24.w,
+              bottom: 17.h,
+            ),
+            width: 565.w,
+            height: 246.h,
+            color: AppTheme.dark2Gray,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'More Like this',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 15.sp),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 7.h,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushReplacementNamed(
+                          MovieDetails.routeName,
+                          arguments: MovieDetailsArguments(
+                              selectedMovie: moviesRecommended[index],
+                              moviesRecommended: moviesRecommended),
+                        );
+                      },
+                      child: TopRatedMovieItem(
+                        movie: moviesRecommended[index],
+                      ),
+                    ),
+                    itemCount: 6,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
         ],
       ),
     );

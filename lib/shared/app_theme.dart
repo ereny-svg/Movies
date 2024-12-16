@@ -15,13 +15,13 @@ class AppTheme {
       primaryColor: primary,
       scaffoldBackgroundColor: primary,
       textTheme: const TextTheme(
-          titleMedium: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.w400, color: white),
-          titleSmall: TextStyle(
-              fontSize: 10, fontWeight: FontWeight.w400, color: gray),
-   
-              ),
-            
+        titleLarge:
+            TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: white),
+        titleMedium:
+            TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: white),
+        titleSmall:
+            TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: gray),
+      ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,

@@ -138,7 +138,7 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
           padding: EdgeInsets.only(
             top: 10.h,
             left: 24.w,
-            bottom: 17.h,
+            bottom: 14.h,
           ),
           width: 565.w,
           height: 246.h,
@@ -154,7 +154,7 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
                     .copyWith(fontSize: 15.sp),
               ),
               SizedBox(
-                height: 14.h,
+                height: 12.h,
               ),
               Expanded(
                 child: ListView.builder(

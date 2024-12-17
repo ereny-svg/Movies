@@ -10,6 +10,7 @@ class AppTheme {
   static const Color white = Color(0xFFFFFFFF);
   static const Color neutralGray = Color(0xFF514F4F);
   static const Color dark2Gray = Color(0xFF343534);
+  static const Color green = Color.fromARGB(255, 6, 175, 6);
 
   static ThemeData darkTheme = ThemeData(
       primaryColor: primary,

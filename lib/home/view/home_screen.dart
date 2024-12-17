@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> screens = [
-    const HomeScreenTab(),
+    HomeScreenTab(const []),
     const SearchScreenTab(),
     const BrowseScreenTab(),
     const WatchListScreenTab(),

@@ -3,16 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_details.dart';
+import 'package:movies/popularmovies/data/model/results.dart';
+import 'package:movies/popularmovies/view/widgets/popular_item.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:movies/movies/view/movie_model.dart';
-import 'package:movies/movies/view/popular_movie_item.dart';
+import 'package:movies/popularmovies/view/widgets/popular_movie_item.dart';
 import 'package:movies/movies/view/top_rated_movie_item.dart';
 import 'package:movies/movies/view/upcoming_movie_item.dart';
 
 class HomeScreenTab extends StatefulWidget {
   static const String routeName = '/home_tab';
-  const HomeScreenTab({super.key});
-
+ HomeScreenTab(this.popularmovies,{super.key,});
+  List<Results>popularmovies;
   @override
   State<HomeScreenTab> createState() => _HomeScreenTabState();
 }
@@ -81,11 +83,11 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
                       moviesRecommended: movies_recommended),
                 );
               },
-              child: PopularMovieItem(
-                movie: movies_new_releases[index],
+              child: PopularItem(
+                movie: widget.popularmovies[index],
               ),
             ),
-            itemCount: 6,
+            itemCount: widget.popularmovies.length,
             onPageChanged: (index) {
               currentPageIndex = index;
             },

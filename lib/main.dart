@@ -23,7 +23,6 @@ class Movies extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               HomeScreen.routeName: (_) => const HomeScreen(),
-              HomeScreenTab.routeName: (_) => const HomeScreenTab(),
               MovieDetails.routeName: (_) => const MovieDetails(),
             },
             initialRoute: HomeScreen.routeName,

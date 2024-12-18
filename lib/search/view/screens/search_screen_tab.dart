@@ -58,7 +58,7 @@ class _SearchScreenTabState extends State<SearchScreenTab> {
         SizedBox(height: 13,),
         if (searchQuery.isNotEmpty)
           Expanded(
-            child: SearchList( searchQuery),) // استدعاء القائمة بناءً على النص المدخل
+            child: SearchList(query: searchQuery),) // استدعاء القائمة بناءً على النص المدخل
         
       ],
     ); 

@@ -1,15 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/movies/movie_details.dart';
 import 'package:movies/popularmovies/data/model/results.dart';
-import 'package:movies/popularmovies/view/widgets/popular_item.dart';
+import 'package:movies/popularmovies/view/popular_movie_list.dart';
+import 'package:movies/recommendedmovies/view/top_rated_movie_list.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:movies/movies/view/movie_model.dart';
-import 'package:movies/popularmovies/view/widgets/popular_movie_item.dart';
-import 'package:movies/movies/view/top_rated_movie_item.dart';
-import 'package:movies/movies/view/upcoming_movie_item.dart';
+import 'package:movies/upcomingmovies/view/upcoming_movie_list.dart';
 
 class HomeScreenTab extends StatefulWidget {
   static const String routeName = '/home_tab';
@@ -20,79 +17,37 @@ class HomeScreenTab extends StatefulWidget {
 }
 
 class _HomeScreenTabState extends State<HomeScreenTab> {
-  final PageController pageController = PageController(initialPage: 0);
-  int currentPageIndex = 0;
-  late Timer timer;
-  final movies_new_releases = List.generate(
-    6,
-    (index) => MovieModel(
-        id: '${index + 1}',
-        title: 'Dora and the lost city of gold',
-        overview:
-            'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
-        backImageName: 'backimage',
-        posterImageName: 'posterimage',
-        vote: '7.7',
-        date: DateTime.now()),
-  );
-  final movies_recommended = List.generate(
-    6,
-    (index) => MovieModel(
-        id: '${index + 1}',
-        title: 'DeadPool',
-        overview:
-            'oul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with abilities from the brutal, time-traveling cyborg Cable',
-        backImageName: 'Deadpool_2',
-        posterImageName: 'Deadpool_2',
-        vote: '7.7',
-        date: DateTime.now()),
-  );
-
-  @override
-  void initState() {
-    super.initState();
-
-    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (currentPageIndex < movies_new_releases.length - 1) {
-        currentPageIndex++;
-      } else {
-        currentPageIndex = 0;
-      }
-      pageController.animateToPage(
-        currentPageIndex,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: PageView.builder(
-            controller: pageController,
-            physics: const PageScrollPhysics(),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  MovieDetails.routeName,
-                  arguments: MovieDetailsArguments(
-                      selectedMovie: movies_new_releases[index],
-                      moviesRecommended: movies_recommended),
-                );
-              },
-              child: PopularItem(
-                movie: widget.popularmovies[index],
-              ),
-            ),
-            itemCount: widget.popularmovies.length,
-            onPageChanged: (index) {
-              currentPageIndex = index;
-            },
-          ),
-        ),
+        PopularMovieList(),
+        // Expanded(
+        //   child: PageView.builder(
+        //     controller: pageController,
+        //     physics: const PageScrollPhysics(),
+        //     itemBuilder: (context, index) =>PopularItem(
+        //          movie: widget.popularmovies[index],
+        //       ),
+        //     // itemBuilder: (context, index) => GestureDetector(
+        //     //   onTap: () {
+        //     //     Navigator.of(context).pushNamed(
+        //     //       MovieDetails.routeName,
+        //     //       arguments: MovieDetailsArguments(
+        //     //           selectedMovie: movies_new_releases[index],
+        //     //           moviesRecommended: movies_recommended),
+        //     //     );
+        //     //   },
+        //     //   child: PopularItem(
+        //     //     movie: widget.popularmovies[index],
+        //     //   ),
+        //     // ),
+        //     itemCount: widget.popularmovies.length,
+        //     onPageChanged: (index) {
+        //       currentPageIndex = index;
+        //     },
+        //   ),
+        // ),
         Container(
           padding: EdgeInsets.only(left: 24.w, top: 10.h, bottom: 10.h),
           width: 455.62.w,
@@ -111,25 +66,29 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
               SizedBox(
                 height: 12.h,
               ),
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        MovieDetails.routeName,
-                        arguments: MovieDetailsArguments(
-                            selectedMovie: movies_new_releases[index],
-                            moviesRecommended: movies_recommended),
-                      );
-                    },
-                    child: UpcomingMovieItem(
-                      movie: movies_new_releases[index],
-                    ),
-                  ),
-                  itemCount: 6,
-                ),
-              ),
+              UpcomingMovieList()
+              // Expanded(
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemBuilder: (context, index) => UpcomingMovieItem(
+              //         movie: movies_new_releases[index],
+              //        ),
+              //     itemBuilder: (context, index) => GestureDetector(
+              //       onTap: () {
+              //         Navigator.of(context).pushNamed(
+              //           MovieDetails.routeName,
+              //           arguments: MovieDetailsArguments(
+              //               selectedMovie: movies_new_releases[index],
+              //               moviesRecommended: movies_recommended),
+              //         );
+              //       },
+              //       child: UpcomingMovieItem(
+              //         movie: movies_new_releases[index],
+              //       ),
+              //     ),
+              //     itemCount: 6,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -158,25 +117,26 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
               SizedBox(
                 height: 12.h,
               ),
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        MovieDetails.routeName,
-                        arguments: MovieDetailsArguments(
-                            selectedMovie: movies_recommended[index],
-                            moviesRecommended: movies_recommended),
-                      );
-                    },
-                    child: TopRatedMovieItem(
-                      movie: movies_recommended[index],
-                    ),
-                  ),
-                  itemCount: 6,
-                ),
-              ),
+              TopRatedMovieList()
+              // Expanded(
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemBuilder: (context, index) => GestureDetector(
+              //       onTap: () {
+              //         Navigator.of(context).pushNamed(
+              //           MovieDetails.routeName,
+              //           arguments: MovieDetailsArguments(
+              //               selectedMovie: movies_recommended[index],
+              //               moviesRecommended: movies_recommended),
+              //         );
+              //       },
+              //       child: TopRatedMovieItem(
+              //         movie: movies_recommended[index],
+              //       ),
+              //     ),
+              //     itemCount: 6,
+              //   ),
+              // ),
             ],
           ),
         ),

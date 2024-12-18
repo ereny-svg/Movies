@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_type.dart';
 import 'package:movies/movies/tabs/home_screen_tab.dart';
-import 'package:movies/movies/view/top_rated_movie_item.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:movies/shared/triangle_clipper.dart';
 
@@ -229,25 +228,26 @@ class MovieDetails extends StatelessWidget {
                 SizedBox(
                   height: 7.h,
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacementNamed(
-                          MovieDetails.routeName,
-                          arguments: MovieDetailsArguments(
-                              selectedMovie: moviesRecommended[index],
-                              moviesRecommended: moviesRecommended),
-                        );
-                      },
-                      child: TopRatedMovieItem(
-                        movie: moviesRecommended[index],
-                      ),
-                    ),
-                    itemCount: 6,
-                  ),
-                ),
+             
+                // Expanded(
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (context, index) => GestureDetector(
+                //       onTap: () {
+                //         Navigator.of(context).pushReplacementNamed(
+                //           MovieDetails.routeName,
+                //           arguments: MovieDetailsArguments(
+                //               selectedMovie: moviesRecommended[index],
+                //               moviesRecommended: moviesRecommended),
+                //         );
+                //       },
+                //       child: TopRatedMovieItem(
+                //         movie: moviesRecommended[index],
+                //       ),
+                //     ),
+                //     itemCount: 6,
+                //   ),
+                // ),
               ],
             ),
           ),

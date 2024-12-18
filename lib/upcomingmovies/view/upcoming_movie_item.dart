@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/shared/api_constant.dart';
 import 'package:movies/shared/app_theme.dart';
-import 'package:movies/movies/view/movie_model.dart';
 import 'package:movies/shared/triangle_clipper.dart';
+import 'package:movies/shared/widgets/loading_indicator.dart';
+import 'package:movies/upcomingmovies/data/model/results.dart';
 
 class UpcomingMovieItem extends StatelessWidget {
   const UpcomingMovieItem({super.key, required this.movie});
-  final MovieModel movie;
+  final Results movie;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,11 +18,15 @@ class UpcomingMovieItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: Image.asset(
-                'assets/images/${movie.posterImageName}.png',
+              child:CachedNetworkImage(
+                 imageUrl: '${ApiConstant.baseUrlImage}${movie.posterPath}' ??
+                          'https://sesupport.edumall.jp/hc/article_attachments/900009570963/noImage.jpg',
                 width: 96.87.w,
                 height: 127.74.h,
                 fit: BoxFit.fill,
+                 placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.image_not_supported_outlined),
               ),
             ),
             ClipPath(

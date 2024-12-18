@@ -7,7 +7,6 @@ import 'package:movies/popularmovies/data/model/results.dart';
 import 'package:movies/popularmovies/view/widgets/popular_item.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:movies/movies/view/movie_model.dart';
-import 'package:movies/popularmovies/view/widgets/popular_movie_item.dart';
 import 'package:movies/movies/view/top_rated_movie_item.dart';
 import 'package:movies/movies/view/upcoming_movie_item.dart';
 

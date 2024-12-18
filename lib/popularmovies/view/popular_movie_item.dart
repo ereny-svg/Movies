@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/popularmovies/data/model/results.dart';
+import 'package:movies/shared/api_constant.dart';
 import 'package:movies/shared/app_theme.dart';
-import 'package:movies/movies/view/movie_model.dart';
 import 'package:movies/shared/triangle_clipper.dart';
+import 'package:movies/shared/widgets/loading_indicator.dart';
 
 class PopularMovieItem extends StatelessWidget {
   const PopularMovieItem({super.key, required this.movie});
-  final MovieModel movie;
+  final Results movie;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +21,15 @@ class PopularMovieItem extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset(
-                'assets/images/${movie.backImageName}.png',
+              CachedNetworkImage(
+                imageUrl: '${ApiConstant.baseUrlImage}${movie.backdropPath}' ??
+                          'https://sesupport.edumall.jp/hc/article_attachments/900009570963/noImage.jpg',
                 width: 412.w,
                 height: 217.h,
                 fit: BoxFit.fill,
+                placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.image_not_supported_outlined),
               ),
               Container(
                 margin: EdgeInsets.only(top: 79.h, left: 176.w),
@@ -38,11 +45,11 @@ class PopularMovieItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movie.title,
+                      movie.originalTitle??'',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
-                      DateTime.now().toString(),
+                     movie.releaseDate?? DateTime.now().toString(),
                       style: Theme.of(context).textTheme.titleSmall,
                     )
                   ],
@@ -54,11 +61,15 @@ class PopularMovieItem extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: Image.asset(
-                        'assets/images/${movie.posterImageName}.png',
+                      child: CachedNetworkImage(
+                        imageUrl: '${ApiConstant.baseUrlImage}${movie.posterPath}' ??
+                          'https://sesupport.edumall.jp/hc/article_attachments/900009570963/noImage.jpg',
                         width: 129.w,
                         height: 199.h,
                         fit: BoxFit.fill,
+                        placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.image_not_supported_outlined),
                       ),
                     ),
                     ClipPath(
@@ -84,7 +95,6 @@ class PopularMovieItem extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
+     ),);
+}
 }

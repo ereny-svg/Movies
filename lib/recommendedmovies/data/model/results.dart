@@ -4,15 +4,15 @@ class Results {
   List<int>? genreIds;
   int? id;
   String? originalLanguage;
-  String? originalTitle;
+  String ?originalTitle;
   String? overview;
   double? popularity;
   String? posterPath;
   String? releaseDate;
   String? title;
-  bool ?video;
+  bool? video;
   double? voteAverage;
-  int ?voteCount;
+  int? voteCount;
 
   Results(
       {this.adult,
@@ -46,5 +46,4 @@ class Results {
     voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
   }
-
 }

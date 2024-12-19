@@ -1,4 +1,4 @@
-class Results {
+class ResultsforPopular {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -10,11 +10,11 @@ class Results {
   String? posterPath;
   String? releaseDate;
   String? title;
-  bool ?video;
+  bool ?video; 
   double? voteAverage;
   int ?voteCount;
 
-  Results(
+  ResultsforPopular(
       {this.adult,
       this.backdropPath,
       this.genreIds,
@@ -30,7 +30,7 @@ class Results {
       this.voteAverage,
       this.voteCount});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  ResultsforPopular.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();

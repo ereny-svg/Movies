@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_type.dart';
-import 'package:movies/movies/tabs/home_screen_tab.dart';
+import 'package:movies/popularmovies/data/model/results.dart';
+import 'package:movies/popularmovies/view/popular_movie_item.dart';
+import 'package:movies/recommendedmovies/data/model/results.dart';
+import 'package:movies/shared/api_constant.dart';
 import 'package:movies/shared/app_theme.dart';
+import 'package:movies/shared/movie_details_arguments.dart';
 import 'package:movies/shared/triangle_clipper.dart';
+import 'package:movies/recommendedmovies/view/top_rated_movie_item.dart';
+import 'package:movies/shared/widgets/loading_indicator.dart';
+import 'package:movies/upcomingmovies/data/model/results.dart';
+import 'package:movies/upcomingmovies/view/upcoming_movie_item.dart';
 
 class MovieDetails extends StatelessWidget {
   static const String routeName = '/movie_details';
@@ -13,8 +22,14 @@ class MovieDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as MovieDetailsArguments;
-    final selectedMovie = args.selectedMovie;
-    final moviesRecommended = args.moviesRecommended;
+
+    bool isRecommended = args.moviesRecommended.isNotEmpty;
+    bool isPopular = args.moviesPopular.isNotEmpty;
+    bool isUpComing = args.moviesUpComing.isNotEmpty;
+    ResultsOfRecommended recommendedMovie = args.recommendedMovie ;
+    ResultsforPopular popularMovie = args.popularMovie;
+    Results upComingMovie = args.upComingMovie ;
+    final moviesRecommended = isRecommended? args.moviesRecommended : isPopular? args.moviesPopular : args.moviesUpComing ;
     final List<String> movieGenres = ['Action', 'Drama', 'Comedy', 'Romantic'];
     return Scaffold(
       body: Column(
@@ -43,7 +58,7 @@ class MovieDetails extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      selectedMovie.title,
+                      isRecommended? recommendedMovie.title ?? '' : isPopular ? popularMovie.title ?? '' : upComingMovie.title ?? '',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
@@ -54,12 +69,18 @@ class MovieDetails extends StatelessWidget {
           ),
           Stack(
             children: [
-              Image.asset(
-                'assets/images/${selectedMovie.backImageName}.png',
-                width: 412.w,
-                height: 217.h,
-                fit: BoxFit.fill,
-              ),
+                     CachedNetworkImage(
+                      imageUrl:
+                          '${ApiConstant.baseUrlImage}${
+                            isRecommended? recommendedMovie.posterPath ?? '' : isPopular ? popularMovie.posterPath ?? '' : upComingMovie.posterPath ?? ''
+                            }',
+                      width: 412.w,
+                      height: 217.h,
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.image_not_supported_outlined),
+                    ),
               Container(
                 margin: EdgeInsets.only(top: 79.h, left: 176.w),
                 child: Icon(
@@ -70,187 +91,172 @@ class MovieDetails extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(left: 15.w, top: 10.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  selectedMovie.title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 18,
-                      ),
-                ),
-                SizedBox(
-                  height: 7.h,
-                ),
-                Text(
-                  selectedMovie.date.toString(),
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                SizedBox(
-                  height: 199.h,
-                  width: 372.w,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.asset(
-                              'assets/images/${selectedMovie.posterImageName}.png',
-                              width: 129.w,
-                              height: 199.h,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          ClipPath(
-                            clipper: TriangleClipper(),
-                            child: Container(
-                              width: 27.w,
-                              height: 36.h,
-                              decoration: BoxDecoration(
-                                  color: AppTheme.neutralGray.withOpacity(0.87),
-                                  borderRadius:
-                                      const BorderRadiusDirectional.only(
-                                          topStart: Radius.circular(4),
-                                          topEnd: Radius.circular(4))),
-                              child: Icon(
-                                Icons.add,
-                                color: AppTheme.white,
-                                size: 17.sp,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 65.h,
-                            width: 230.w,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10.w, top: 10.h),
-                              child: Wrap(
-                                spacing: 8.0,
-                                runSpacing: 4.0,
-                                children: movieGenres.map((genre) {
-                                  return MovieType(typeName: genre);
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w),
-                            child: SizedBox(
-                              width: 231.w,
-                              height: 78.h,
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  selectedMovie.overview,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        fontSize: 13.0,
-                                      ),
-                                  maxLines: 5,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w, top: 10.h),
-                            child: SizedBox(
-                              height: 27.h,
-                              // width: 51.w,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 20.sp,
-                                    color: AppTheme.darkYellow,
-                                  ),
-                                  SizedBox(
-                                    width: 4.w,
-                                  ),
-                                  Text(
-                                    selectedMovie.vote,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(fontSize: 18.sp),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Container(
-            padding: EdgeInsets.only(
-              top: 10.h,
-              left: 24.w,
-              bottom: 17.h,
-            ),
-            width: 565.w,
-            height: 246.h,
-            color: AppTheme.dark2Gray,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'More Like this',
+                  isRecommended? recommendedMovie.title ?? '' : isPopular ? popularMovie.title ?? '' : upComingMovie.title ?? '',
                   style: Theme.of(context)
                       .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 15.sp),
+                      .titleMedium
+                      ?.copyWith(fontSize: 18),
                 ),
-                SizedBox(
-                  height: 7.h,
+                SizedBox(height: 7.h),
+                Text(
+                  isRecommended? recommendedMovie.releaseDate ?? '' : isPopular ? popularMovie.releaseDate ?? '' : upComingMovie.releaseDate ?? '',
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
-             
-                // Expanded(
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemBuilder: (context, index) => GestureDetector(
-                //       onTap: () {
-                //         Navigator.of(context).pushReplacementNamed(
-                //           MovieDetails.routeName,
-                //           arguments: MovieDetailsArguments(
-                //               selectedMovie: moviesRecommended[index],
-                //               moviesRecommended: moviesRecommended),
-                //         );
-                //       },
-                //       child: TopRatedMovieItem(
-                //         movie: moviesRecommended[index],
-                //       ),
-                //     ),
-                //     itemCount: 6,
-                //   ),
-                // ),
+                SizedBox(height: 15.h),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: CachedNetworkImage(
+                                  imageUrl:
+                                      '${ApiConstant.baseUrlImage}${
+                            isRecommended? recommendedMovie.posterPath ?? '' : isPopular ? popularMovie.posterPath ?? '' : upComingMovie.posterPath ?? ''
+                                        }',
+                                  width: 129.w,
+                                  height: 199.h,
+                                  fit: BoxFit.fill,
+                                  placeholder: (context, url) =>
+                                      const LoadingIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                          Icons.image_not_supported_outlined),
+                                )
+                        ),
+                        ClipPath(
+                          clipper: TriangleClipper(),
+                          child: Container(
+                            width: 27.w,
+                            height: 36.h,
+                            decoration: BoxDecoration(
+                                color: AppTheme.neutralGray.withOpacity(0.87),
+                                borderRadius:
+                                    const BorderRadiusDirectional.only(
+                                        topStart: Radius.circular(4),
+                                        topEnd: Radius.circular(4))),
+                            child: Icon(
+                              Icons.add,
+                              color: AppTheme.white,
+                              size: 17.sp,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 10.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 4.0,
+                            children: movieGenres.map((genre) {
+                                  return MovieType(typeName: genre);
+                                }).toList(),
+                          ),
+                          SizedBox(height: 10.h),
+                          Text(
+                                isRecommended? recommendedMovie.overview ?? '' : isPopular ? popularMovie.overview ?? '' : upComingMovie.overview ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontSize: 13.0),
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 10.h),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 20.sp,
+                                color: AppTheme.darkYellow,
+                              ),
+                              SizedBox(width: 4.w),
+                              Text(
+                                  isRecommended? recommendedMovie.voteAverage?.toStringAsFixed(1)?? '' : isPopular ? popularMovie.voteAverage?.toStringAsFixed(1) ?? '' : upComingMovie.voteAverage?.toStringAsFixed(1) ?? ''
+,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontSize: 18.sp),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+            child: Text(
+              'More Like This',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontSize: 15.sp),
+            ),
+          ),
+          Expanded(
+            child: isRecommended? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: args.moviesRecommended.length,
+              itemBuilder: (context, index) {
+                final movie = args.moviesRecommended[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(
+                      MovieDetails.routeName,
+                      arguments: MovieDetailsArguments(
+                        moviesRecommended:isRecommended? args.moviesRecommended : [],
+                        moviesPopular: isPopular ? args.moviesPopular : [],
+                        moviesUpComing: isUpComing? args.moviesUpComing : [],
+                        popularMovie: isPopular ? args.moviesPopular[index] : ResultsforPopular(),
+                        recommendedMovie: isRecommended? args.moviesRecommended[index] : ResultsOfRecommended(),
+                        upComingMovie: isUpComing? args.moviesUpComing[index] : Results(),
+                      ),
+                    );
+                  },
+                  child:TopRatedMovieItem(movie: movie), 
+                );
+              },
+            ) : isUpComing? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: args.moviesUpComing.length,
+              itemBuilder: (context, index) {
+                final movie = args.moviesUpComing[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(
+                      MovieDetails.routeName,
+                      arguments: MovieDetailsArguments(
+                        moviesRecommended:isRecommended? args.moviesRecommended : [],
+                        moviesPopular: isPopular ? args.moviesPopular : [],
+                        moviesUpComing: isUpComing? args.moviesUpComing : [],
+                        popularMovie: isPopular ? args.moviesPopular[index] : ResultsforPopular(),
+                        recommendedMovie: isRecommended? args.moviesRecommended[index] : ResultsOfRecommended(),
+                        upComingMovie: isUpComing? args.moviesUpComing[index] : Results(),
+                      ),
+                    );
+                  },
+                  child:UpcomingMovieItem(movie: movie), 
+                );
+              },
+            )
+          : Container()),
         ],
       ),
     );

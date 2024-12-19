@@ -9,7 +9,7 @@ import 'package:movies/shared/widgets/loading_indicator.dart';
 
 class PopularMovieItem extends StatelessWidget {
   const PopularMovieItem({super.key, required this.movie});
-  final Results movie;
+  final ResultsforPopular movie;
 
   @override
   Widget build(BuildContext context) {

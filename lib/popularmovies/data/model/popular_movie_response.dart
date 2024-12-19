@@ -2,7 +2,7 @@ import 'package:movies/popularmovies/data/model/results.dart';
 
 class PopularMovieResponse {
   int ?page;
-  List<Results>? results;
+  List<ResultsforPopular>? results;
   int ?totalPages;
   int? totalResults;
 
@@ -12,9 +12,9 @@ class PopularMovieResponse {
   PopularMovieResponse.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
-      results =<Results>[];
+      results =<ResultsforPopular>[];
       json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add(new ResultsforPopular.fromJson(v));
       });
     }
     totalPages = json['total_pages'];

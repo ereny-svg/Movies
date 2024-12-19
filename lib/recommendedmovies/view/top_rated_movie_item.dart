@@ -9,7 +9,7 @@ import 'package:movies/shared/widgets/loading_indicator.dart';
 
 class TopRatedMovieItem extends StatelessWidget {
   const TopRatedMovieItem({super.key, required this.movie});
-  final Results movie;
+  final ResultsOfRecommended movie;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,8 +28,7 @@ class TopRatedMovieItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: CachedNetworkImage(
-                      imageUrl: '${ApiConstant.baseUrlImage}${movie.posterPath}' ??
-                          'https://sesupport.edumall.jp/hc/article_attachments/900009570963/noImage.jpg',
+                      imageUrl: '${ApiConstant.baseUrlImage}${movie.posterPath}' ,
                       width: 96.w,
                       height: 127.h,
                       fit: BoxFit.fill,
@@ -96,8 +95,7 @@ class TopRatedMovieItem extends StatelessWidget {
                             .copyWith(fontSize: 10.sp),
                       ),
                       Text(
-                        movie.releaseDate.toString() ??
-                            DateTime.now().toString(),
+                        movie.releaseDate.toString(),
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme

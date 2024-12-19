@@ -4,7 +4,7 @@ import 'package:movies/recommendedmovies/data/model/results.dart';
 
 class RecommendedMovieResponse {
   int? page;
-  List<Results>? results;
+  List<ResultsOfRecommended>? results;
   int? totalPages;
   int ?totalResults;
 
@@ -13,9 +13,9 @@ class RecommendedMovieResponse {
   RecommendedMovieResponse.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
-      results = <Results>[];
+      results = <ResultsOfRecommended>[];
       json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add(ResultsOfRecommended.fromJson(v));
       });
     }
     totalPages = json['total_pages'];

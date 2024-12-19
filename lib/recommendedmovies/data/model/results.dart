@@ -1,8 +1,8 @@
-class Results {
+class ResultsOfRecommended {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
-  int? id;
+  int? id; 
   String? originalLanguage;
   String ?originalTitle;
   String? overview;
@@ -14,7 +14,7 @@ class Results {
   double? voteAverage;
   int? voteCount;
 
-  Results(
+  ResultsOfRecommended(
       {this.adult,
       this.backdropPath,
       this.genreIds,
@@ -30,7 +30,7 @@ class Results {
       this.voteAverage,
       this.voteCount});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  ResultsOfRecommended.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();

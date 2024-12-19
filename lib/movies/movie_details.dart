@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/movie_type.dart';
 import 'package:movies/popularmovies/data/model/results.dart';
 import 'package:movies/popularmovies/view/popular_movie_item.dart';
+import 'package:movies/popularmovies/view/small_popular_movie_tem.dart';
 import 'package:movies/recommendedmovies/data/model/results.dart';
 import 'package:movies/shared/api_constant.dart';
 import 'package:movies/shared/app_theme.dart';
@@ -256,7 +257,29 @@ class MovieDetails extends StatelessWidget {
                 );
               },
             )
-          : Container()),
+          : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: args.moviesPopular.length,
+              itemBuilder: (context, index) {
+                final movie = args.moviesPopular[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(
+                      MovieDetails.routeName,
+                      arguments: MovieDetailsArguments(
+                        moviesRecommended:isRecommended? args.moviesRecommended : [],
+                        moviesPopular: isPopular ? args.moviesPopular : [],
+                        moviesUpComing: isUpComing? args.moviesUpComing : [],
+                        popularMovie: isPopular ? args.moviesPopular[index] : ResultsforPopular(),
+                        recommendedMovie: isRecommended? args.moviesRecommended[index] : ResultsOfRecommended(),
+                        upComingMovie: isUpComing? args.moviesUpComing[index] : Results(),
+                      ),
+                    );
+                  },
+                  child:SmallPopularMovieTem(movie: movie), 
+                );
+              },
+            )),
         ],
       ),
     );

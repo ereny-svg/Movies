@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/movies/tabs/category/category_item.dart';
-import 'package:movies/movies/tabs/category/category_model.dart';
+import 'package:movies/movies/tabs/category/view/widgets/category_list.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,6 +9,7 @@ class BrowseScreenTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppTheme.primary,
         toolbarHeight: 81.h,
         title: Container(
@@ -30,21 +30,7 @@ class BrowseScreenTab extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 38.w,
-                    mainAxisSpacing: 47.h,
-                    childAspectRatio: 2),
-                itemBuilder: (_, index) => CategoryItem(
-                  index: index,
-                  categories: CategoryModel(
-                      id: 'action', name: 'Action', imageName: 'yly'),
-                ),
-                itemCount: 12,
-              ),
-            ),
+           const categoryList()
           ],
         ),
       ),

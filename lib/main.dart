@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/home/view/home_screen.dart';
 import 'package:movies/movies/movie_details.dart';
-import 'package:movies/movies/tabs/category/data/models/response.dart';
 import 'package:movies/movies/tabs/category/view/screens/category_filtered_movies.dart';
 import 'package:movies/shared/app_theme.dart';
 
@@ -14,7 +13,6 @@ class Movies extends StatelessWidget {
   const Movies({super.key});
   @override
   Widget build(BuildContext context) {
-    final Results categories;
     return ScreenUtilInit(
         designSize: const Size(412, 892),
         minTextAdapt: true,

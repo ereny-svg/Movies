@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/movies/tabs/category/data/models/response.dart';
 import 'package:movies/movies/tabs/category/view/widgets/category_filtered_movies_list.dart';
 import 'package:movies/movies/tabs/category/view/widgets/category_item.dart';
-import 'package:movies/movies/tabs/category/view/widgets/category_list.dart';
 import 'package:movies/shared/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +34,7 @@ class CategoryFilteredMovies extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              CategoryFilteredMoviesLIST()
+              CategoryFilteredMoviesLIST(item.categories.id.toString())
             ],
           ),
         ),

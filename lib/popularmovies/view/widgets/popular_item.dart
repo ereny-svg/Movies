@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/popularmovies/data/model/results.dart';
 import 'package:movies/shared/api_constant.dart';
 import 'package:movies/shared/app_theme.dart';
-import 'package:movies/movies/view/movie_model.dart';
 import 'package:movies/shared/triangle_clipper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 class PopularItem extends StatelessWidget {

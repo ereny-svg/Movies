@@ -17,7 +17,7 @@ final Results movies;
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(5),
             child: CachedNetworkImage(
                       imageUrl: '${ApiConstant.baseUrlImage}${movies.backdropPath}' ??
                           'https://sesupport.edumall.jp/hc/article_attachments/900009570963/noImage.jpg',
@@ -29,8 +29,7 @@ final Results movies;
                           const Icon(Icons.image_not_supported_outlined),
                           ),
             ),
-          SizedBox(width: 10),
-        
+          const SizedBox(width: 10),
           Expanded(
             child: Column(  
               crossAxisAlignment: CrossAxisAlignment.start,

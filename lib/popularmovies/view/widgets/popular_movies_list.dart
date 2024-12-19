@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies/home/view/home_screen.dart';
 import 'package:movies/movies/tabs/home_screen_tab.dart';
 import 'package:movies/popularmovies/view_model/popular_view_model.dart';
 import 'package:movies/shared/widgets/error_indicator.dart';
@@ -30,10 +29,10 @@ class _PopularMovieListState extends State<PopularMovieList> {
           builder: (_, viewModel, __) {
             if (viewModel.isLoading) {
               print('rrrrrrrr');
-              return LoadingIndicator();
+              return const LoadingIndicator();
             } else if (viewModel.errorMessage != null) {
               print('wwwwww');
-              return ErrorIndicator();
+              return const ErrorIndicator();
             } else {
               print('r');
               return HomeScreenTab(viewModel.movies);

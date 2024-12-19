@@ -6,7 +6,7 @@ import 'package:movies/shared/widgets/loading_indicator.dart';
 
 class CategoryFilteredMoviesLIST extends StatelessWidget {
   String id;
-  CategoryFilteredMoviesLIST(this.id);
+  CategoryFilteredMoviesLIST(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {

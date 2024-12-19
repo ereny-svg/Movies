@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryFilteredMovies extends StatelessWidget {
   static const String routeName = '/category';
+
+  const CategoryFilteredMovies({super.key});
   @override
   Widget build(BuildContext context) {
      var item = ModalRoute.of(context)!.settings.arguments as CategoryItem;

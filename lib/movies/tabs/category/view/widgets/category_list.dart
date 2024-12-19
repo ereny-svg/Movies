@@ -15,9 +15,9 @@ class categoryList extends StatelessWidget {
       future: CategoryNameAP.getCategoryName(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoadingIndicator();
+          return const LoadingIndicator();
         } else if (snapshot.hasError) {
-          return ErrorIndicator();
+          return const ErrorIndicator();
         } else {
           final categoryList = snapshot.data?.results ?? [];
           return 

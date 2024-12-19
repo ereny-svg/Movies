@@ -9,15 +9,15 @@ class CategoryNameResponse {
     if (json['genres'] != null) {
       results = <Results>[];
       json['genres'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add(Results.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.results != null) {
-      data['genres'] = this.results!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (results != null) {
+      data['genres'] = results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
